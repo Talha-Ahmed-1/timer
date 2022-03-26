@@ -202,7 +202,7 @@ circuit TimerHarness :
   module Timer : 
     input clock : Clock
     input reset : Reset
-    output io : {flip req : {flip ready : UInt<1>, valid : UInt<1>, bits : {addrRequest : UInt<32>, dataRequest : UInt<32>, activeByteLane : UInt<4>, isWrite : UInt<1>}}, rsp : {flip ready : UInt<1>, valid : UInt<1>, bits : {dataResponse : UInt<32>, error : UInt<1>}}, intr_cmp : UInt<1>, intr_ovf : UInt<1>}
+    output io : {flip req : {flip ready : UInt<1>, valid : UInt<1>, bits : {addrRequest : UInt<32>, dataRequest : UInt<32>, activeByteLane : UInt<4>, isWrite : UInt<1>}}, rsp : {flip ready : UInt<1>, valid : UInt<1>, bits : {dataResponse : UInt<32>, error : UInt<1>}}, cio_timer_intr_cmp : UInt<1>, cio_timer_intr_ovf : UInt<1>}
     
     reg TimerReg : UInt<32>, clock with : (reset => (reset, UInt<32>("h00"))) @[Timer.scala 23:29]
     reg ControlReg : UInt<32>, clock with : (reset => (reset, UInt<32>("h00"))) @[Timer.scala 24:29]
@@ -330,8 +330,8 @@ circuit TimerHarness :
                 io.rsp.valid <= io_rsp_valid_REG_5 @[Timer.scala 62:22]
                 skip @[Timer.scala 60:84]
               else : @[Timer.scala 64:15]
-                io.intr_cmp is invalid @[Timer.scala 65:48]
-                io.rsp.valid is invalid @[Timer.scala 65:48]
+                io.cio_timer_intr_cmp is invalid @[Timer.scala 65:58]
+                io.rsp.valid is invalid @[Timer.scala 65:58]
                 reg io_rsp_bits_dataResponse_REG_6 : UInt, clock @[Timer.scala 66:44]
                 io_rsp_bits_dataResponse_REG_6 <= io.req.bits.addrRequest @[Timer.scala 66:44]
                 io.rsp.bits.dataResponse <= io_rsp_bits_dataResponse_REG_6 @[Timer.scala 66:34]
@@ -372,12 +372,12 @@ circuit TimerHarness :
             node _PreCountReg_T_3 = tail(_PreCountReg_T_2, 1) @[Timer.scala 83:36]
             PreCountReg <= _PreCountReg_T_3 @[Timer.scala 83:21]
             skip @[Timer.scala 82:40]
-    node _io_intr_cmp_T = eq(TimerReg, CompareReg) @[Timer.scala 87:41]
-    node _io_intr_cmp_T_1 = mux(enable, _io_intr_cmp_T, UInt<1>("h00")) @[Timer.scala 87:23]
-    io.intr_cmp <= _io_intr_cmp_T_1 @[Timer.scala 87:17]
-    node _io_intr_ovf_T = eq(TimerReg, UInt<32>("h0ffffffff")) @[Timer.scala 88:41]
-    node _io_intr_ovf_T_1 = mux(enable, _io_intr_ovf_T, UInt<1>("h00")) @[Timer.scala 88:23]
-    io.intr_ovf <= _io_intr_ovf_T_1 @[Timer.scala 88:17]
+    node _io_cio_timer_intr_cmp_T = eq(TimerReg, CompareReg) @[Timer.scala 87:51]
+    node _io_cio_timer_intr_cmp_T_1 = mux(enable, _io_cio_timer_intr_cmp_T, UInt<1>("h00")) @[Timer.scala 87:33]
+    io.cio_timer_intr_cmp <= _io_cio_timer_intr_cmp_T_1 @[Timer.scala 87:27]
+    node _io_cio_timer_intr_ovf_T = eq(TimerReg, UInt<32>("h0ffffffff")) @[Timer.scala 88:51]
+    node _io_cio_timer_intr_ovf_T_1 = mux(enable, _io_cio_timer_intr_ovf_T, UInt<1>("h00")) @[Timer.scala 88:33]
+    io.cio_timer_intr_ovf <= _io_cio_timer_intr_ovf_T_1 @[Timer.scala 88:27]
     wire addr_hit : UInt<1>[4] @[Timer.scala 93:24]
     node _wireAddr_T = bits(io.req.bits.addrRequest, 3, 0) @[Timer.scala 95:52]
     wire wireAddr : UInt
@@ -421,7 +421,7 @@ circuit TimerHarness :
   module TimerHarness : 
     input clock : Clock
     input reset : UInt<1>
-    output io : {flip req : {flip ready : UInt<1>, valid : UInt<1>, bits : {addrRequest : UInt<32>, dataRequest : UInt<32>, activeByteLane : UInt<4>, isWrite : UInt<1>}}, rsp : {flip ready : UInt<1>, valid : UInt<1>, bits : {dataResponse : UInt<32>, error : UInt<1>}}, intr_cmp : UInt<1>, intr_ovf : UInt<1>}
+    output io : {flip req : {flip ready : UInt<1>, valid : UInt<1>, bits : {addrRequest : UInt<32>, dataRequest : UInt<32>, activeByteLane : UInt<4>, isWrite : UInt<1>}}, rsp : {flip ready : UInt<1>, valid : UInt<1>, bits : {dataResponse : UInt<32>, error : UInt<1>}}, cio_timer_intr_cmp : UInt<1>, cio_timer_intr_ovf : UInt<1>}
     
     inst hostAdapter of WishboneHost @[TimerHarness.scala 21:27]
     hostAdapter.clock <= clock
@@ -465,6 +465,6 @@ circuit TimerHarness :
     deviceAdapter.io.rspIn.bits.dataResponse <= timer.io.rsp.bits.dataResponse @[TimerHarness.scala 31:16]
     deviceAdapter.io.rspIn.valid <= timer.io.rsp.valid @[TimerHarness.scala 31:16]
     timer.io.rsp.ready <= deviceAdapter.io.rspIn.ready @[TimerHarness.scala 31:16]
-    io.intr_cmp <= timer.io.intr_cmp @[TimerHarness.scala 33:15]
-    io.intr_ovf <= timer.io.intr_ovf @[TimerHarness.scala 34:15]
+    io.cio_timer_intr_cmp <= timer.io.cio_timer_intr_cmp @[TimerHarness.scala 33:25]
+    io.cio_timer_intr_ovf <= timer.io.cio_timer_intr_ovf @[TimerHarness.scala 34:25]
     

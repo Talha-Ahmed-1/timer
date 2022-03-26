@@ -1,2 +1,45 @@
 [0m[[0m[0mdebug[0m] [0m[0mCreated transactional ClassFileManager with tempDir = /home/talha/timer/target/scala-2.12/classes.bak[0m
+[0m[[0m[0mdebug[0m] [0m[0mAbout to delete class files:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	TimerHarness.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Protocol.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	TimerDriverWB$delayedInit$body.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	TimerDriverTL$delayedInit$body.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	TimerHarnessTL$$anon$2.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	TimerDriverWB.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	TimerDriverTL$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Timer.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	TimerHarness$$anon$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	TimerHarnessTL.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Protocol_IO.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	TimerDriverWB$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	TimerDriverTL.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Timer_IO.class[0m
+[0m[[0m[0mdebug[0m] [0m[0mWe backup class files:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	TimerHarness.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Protocol.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	TimerDriverWB$delayedInit$body.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	TimerDriverTL$delayedInit$body.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	TimerHarnessTL$$anon$2.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	TimerDriverWB.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	TimerDriverTL$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Timer.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	TimerHarness$$anon$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	TimerHarnessTL.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Protocol_IO.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	TimerDriverWB$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	TimerDriverTL.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Timer_IO.class[0m
+[0m[[0m[0mdebug[0m] [0m[0mRegistering generated classes:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	TimerHarness.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	TimerDriverWB$delayedInit$body.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	TimerDriverTL$delayedInit$body.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	TimerHarnessTL$$anon$2.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	TimerDriverWB.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	TimerDriverTL$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Timer.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	TimerHarness$$anon$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	TimerHarnessTL.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	TimerDriverWB$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	TimerDriverTL.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Timer_IO.class[0m
 [0m[[0m[0mdebug[0m] [0m[0mRemoving the temporary directory used for backing up class files: /home/talha/timer/target/scala-2.12/classes.bak[0m

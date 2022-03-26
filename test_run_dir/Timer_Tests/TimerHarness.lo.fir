@@ -222,8 +222,8 @@ circuit TimerHarness :
     output io_rsp_valid : UInt<1>
     output io_rsp_bits_dataResponse : UInt<32>
     output io_rsp_bits_error : UInt<1>
-    output io_intr_cmp : UInt<1>
-    output io_intr_ovf : UInt<1>
+    output io_cio_timer_intr_cmp : UInt<1>
+    output io_cio_timer_intr_ovf : UInt<1>
 
     reg TimerReg : UInt<32>, clock with :
       reset => (UInt<1>("h0"), TimerReg) @[Timer.scala 23:29]
@@ -363,10 +363,10 @@ circuit TimerHarness :
     node _GEN_22 = mux(_T_40, PreCountReg, _GEN_20) @[Timer.scala 76:69 Timer.scala 26:29]
     node _GEN_23 = mux(_T_37, _PreCountReg_T_1, _GEN_22) @[Timer.scala 73:40 Timer.scala 74:21]
     node _GEN_24 = mux(_T_37, TimerReg, _GEN_21) @[Timer.scala 73:40 Timer.scala 23:29]
-    node _io_intr_cmp_T = eq(TimerReg, CompareReg) @[Timer.scala 87:41]
-    node _io_intr_cmp_T_1 = mux(enable, _io_intr_cmp_T, UInt<1>("h0")) @[Timer.scala 87:23]
-    node _io_intr_ovf_T = eq(TimerReg, UInt<32>("hffffffff")) @[Timer.scala 88:41]
-    node _io_intr_ovf_T_1 = mux(enable, _io_intr_ovf_T, UInt<1>("h0")) @[Timer.scala 88:23]
+    node _io_cio_timer_intr_cmp_T = eq(TimerReg, CompareReg) @[Timer.scala 87:51]
+    node _io_cio_timer_intr_cmp_T_1 = mux(enable, _io_cio_timer_intr_cmp_T, UInt<1>("h0")) @[Timer.scala 87:33]
+    node _io_cio_timer_intr_ovf_T = eq(TimerReg, UInt<32>("hffffffff")) @[Timer.scala 88:51]
+    node _io_cio_timer_intr_ovf_T_1 = mux(enable, _io_cio_timer_intr_ovf_T, UInt<1>("h0")) @[Timer.scala 88:33]
     node _wireAddr_T = bits(io_req_bits_addrRequest, 3, 0) @[Timer.scala 95:52]
     node wireAddr = _wireAddr_T
     node _addr_hit_0_T = eq(wireAddr, UInt<1>("h0")) @[Timer.scala 102:39]
@@ -399,8 +399,8 @@ circuit TimerHarness :
     io_rsp_valid <= _GEN_15
     io_rsp_bits_dataResponse <= _GEN_14
     io_rsp_bits_error <= _GEN_26
-    io_intr_cmp <= _io_intr_cmp_T_1 @[Timer.scala 87:17]
-    io_intr_ovf <= _io_intr_ovf_T_1 @[Timer.scala 88:17]
+    io_cio_timer_intr_cmp <= _io_cio_timer_intr_cmp_T_1 @[Timer.scala 87:27]
+    io_cio_timer_intr_ovf <= _io_cio_timer_intr_ovf_T_1 @[Timer.scala 88:27]
     TimerReg <= mux(reset, UInt<32>("h0"), _GEN_24) @[Timer.scala 23:29 Timer.scala 23:29]
     ControlReg <= mux(reset, UInt<32>("h0"), _GEN_16) @[Timer.scala 24:29 Timer.scala 24:29]
     CompareReg <= mux(reset, UInt<32>("h0"), _GEN_17) @[Timer.scala 25:29 Timer.scala 25:29]
@@ -435,8 +435,8 @@ circuit TimerHarness :
     output io_rsp_valid : UInt<1>
     output io_rsp_bits_dataResponse : UInt<32>
     output io_rsp_bits_error : UInt<1>
-    output io_intr_cmp : UInt<1>
-    output io_intr_ovf : UInt<1>
+    output io_cio_timer_intr_cmp : UInt<1>
+    output io_cio_timer_intr_ovf : UInt<1>
 
     inst hostAdapter of WishboneHost @[TimerHarness.scala 21:27]
     inst deviceAdapter of WishboneDevice @[TimerHarness.scala 22:29]
@@ -445,8 +445,8 @@ circuit TimerHarness :
     io_rsp_valid <= hostAdapter.io_rspOut_valid @[TimerHarness.scala 26:10]
     io_rsp_bits_dataResponse <= hostAdapter.io_rspOut_bits_dataResponse @[TimerHarness.scala 26:10]
     io_rsp_bits_error <= hostAdapter.io_rspOut_bits_error @[TimerHarness.scala 26:10]
-    io_intr_cmp <= timer.io_intr_cmp @[TimerHarness.scala 33:15]
-    io_intr_ovf <= timer.io_intr_ovf @[TimerHarness.scala 34:15]
+    io_cio_timer_intr_cmp <= timer.io_cio_timer_intr_cmp @[TimerHarness.scala 33:25]
+    io_cio_timer_intr_ovf <= timer.io_cio_timer_intr_ovf @[TimerHarness.scala 34:25]
     hostAdapter.clock <= clock
     hostAdapter.reset <= reset
     hostAdapter.io_wbMasterTransmitter_ready <= deviceAdapter.io_wbMasterReceiver_ready @[TimerHarness.scala 27:38]

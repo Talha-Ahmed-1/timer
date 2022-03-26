@@ -16,17 +16,6 @@ import timer._
 
 class TimerTester extends FreeSpec with ChiselScalatestTester {
 
-  // "Timer Protocol Tests" in {
-  //   test(new Protocol()) { c =>
-
-  //   c.io.enable.poke(1.B)
-  //   c.io.prescalar.poke(2.U)
-  //   c.io.compare.poke(10.U)
-    
-  //   c.clock.step(100)
-  // }
-  // }
-
   "Timer Tests" in {
     implicit val config = WishboneConfig(32,32)
     // implicit val config = TilelinkConfig()

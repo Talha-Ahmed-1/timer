@@ -10,8 +10,8 @@ class Timer_IO[A <: AbstrRequest, B <: AbstrResponse] (gen: A, gen1: B) extends 
     val req = Flipped(Decoupled(gen))
     val rsp = Decoupled(gen1)
 
-    val intr_cmp = Output(Bool())
-    val intr_ovf = Output(Bool())
+    val cio_timer_intr_cmp = Output(Bool())
+    val cio_timer_intr_ovf = Output(Bool())
 }
 
 
@@ -31,7 +31,7 @@ class Timer[A <: AbstrRequest, B <: AbstrResponse] (gen: A, gen1: B) extends Mod
     io.req.ready := 1.B
     io.rsp.valid := 0.B
 
-    // io.intr_cmp := DontCare
+    // io.cio_timer_intr_cmp := DontCare
     
     when (io.req.bits.addrRequest(3,0) === 0.U && io.req.bits.isWrite === 0.B){
         io.rsp.bits.dataResponse := RegNext(Mux(io.rsp.ready, TimerReg, 0.U))
@@ -62,7 +62,7 @@ class Timer[A <: AbstrRequest, B <: AbstrResponse] (gen: A, gen1: B) extends Mod
         io.rsp.valid := RegNext(io.req.valid)
     }
     .otherwise{
-        List(io.intr_cmp, io.rsp.valid) map (_ := DontCare)
+        List(io.cio_timer_intr_cmp, io.rsp.valid) map (_ := DontCare)
         io.rsp.bits.dataResponse := RegNext(io.req.bits.addrRequest)
     }
 
@@ -84,8 +84,8 @@ class Timer[A <: AbstrRequest, B <: AbstrResponse] (gen: A, gen1: B) extends Mod
     }
 
     // Interupts
-    io.intr_cmp := Mux(enable, TimerReg === CompareReg, 0.B)
-    io.intr_ovf := Mux(enable, TimerReg === "hffffffff".U, 0.B)
+    io.cio_timer_intr_cmp := Mux(enable, TimerReg === CompareReg, 0.B)
+    io.cio_timer_intr_ovf := Mux(enable, TimerReg === "hffffffff".U, 0.B)
 
 
 
