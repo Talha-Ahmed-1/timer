@@ -4,7 +4,7 @@ import chisel3._
 import chisel3.util._
 import caravan.bus.common.{AbstrRequest, AbstrResponse}
 
-class Timer_IO extends Bundle{
+class Timer_IO[A <: AbstrRequest, B <: AbstrResponse] (gen: A, gen1: B) extends Bundle{
 
     // bus interconnect interfaces
     val req = Flipped(Decoupled(gen))
@@ -15,9 +15,8 @@ class Timer_IO extends Bundle{
 
 
 // timer in chisel
-class Timer[A <: AbstrRequest, B <: AbstrResponse]
-          (gen: A, gen1: B) extends Module{
-    val io = IO(new Protocol_IO())
+class Timer[A <: AbstrRequest, B <: AbstrResponse] (gen: A, gen1: B) extends Module{
+    val io = IO(new Timer_IO(gen,gen1))
 
     // registers
     val TimerReg   = RegInit(0.U(32.W)) // RO 0x0
@@ -30,6 +29,8 @@ class Timer[A <: AbstrRequest, B <: AbstrResponse]
     io.req.ready := 1.B
     io.rsp.valid := 0.B
 
+    io.intr_cmp := DontCare
+    
     when (io.req.bits.addrRequest(3,0) === 0.U && io.req.bits.isWrite === 0.B){
         io.rsp.bits.dataResponse := RegNext(Mux(io.rsp.ready, TimerReg, 0.U))
         io.rsp.valid := RegNext(io.req.valid)
@@ -55,7 +56,7 @@ class Timer[A <: AbstrRequest, B <: AbstrResponse]
         io.rsp.valid := RegNext(io.req.valid)
     }
     .otherwise{
-        List(io.cs_n, io.sclk, io.mosi, io.rsp.valid) map (_ := DontCare)
+        List(io.intr_cmp, io.rsp.valid) map (_ := DontCare)
         io.rsp.bits.dataResponse := RegNext(io.req.bits.addrRequest)
     }
 

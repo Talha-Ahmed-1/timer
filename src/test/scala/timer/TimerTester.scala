@@ -9,11 +9,10 @@ import chiseltest._
 import chisel3.experimental.BundleLiterals._
 import chiseltest.experimental.TestOptionBuilder._
 import chiseltest.internal.VerilatorBackendAnnotation
-import jigsaw.peripherals.spi._
-import jigsaw.SpiHarness
 import caravan.bus.wishbone.WishboneConfig
 import caravan.bus.tilelink.TilelinkConfig
-import jigsaw.peripherals.spiflash._
+import timer._
+// import TimerHarness
 
 class TimerTester extends FreeSpec with ChiselScalatestTester {
 
@@ -62,7 +61,7 @@ class TimerTester extends FreeSpec with ChiselScalatestTester {
       c.io.req.bits.addrRequest.poke(0.U)
       c.io.req.bits.dataRequest.poke(659.U)
       c.io.req.bits.activeByteLane.poke("b1111".U)
-      c.io.req.bits.isWrite.poke(1.B)
+      c.io.req.bits.isWrite.poke(0.B)
       c.io.req.valid.poke(1.B)
       c.clock.step(1)
       c.io.req.valid.poke(0.B)
