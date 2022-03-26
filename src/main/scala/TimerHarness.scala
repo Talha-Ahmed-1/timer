@@ -5,7 +5,7 @@ import chisel3._
 import chisel3.stage.ChiselStage
 import chisel3.util.Decoupled
 // import jigsaw.peripherals.spiflash.{Config,Spi}
-import jigsaw.rams.sram._
+// import jigsaw.rams.sram._
 
 class TimerHarness(implicit val config: WishboneConfig ) extends Module {
   val io = IO(new Bundle {
