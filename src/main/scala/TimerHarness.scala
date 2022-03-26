@@ -1,4 +1,4 @@
-package jigsaw
+package timer
 import caravan.bus.tilelink.{TLRequest, TLResponse, TilelinkConfig, TilelinkDevice, TilelinkHost}
 import caravan.bus.wishbone.{WBRequest, WBResponse, WishboneConfig, WishboneDevice, WishboneHost}
 import chisel3._
@@ -6,6 +6,7 @@ import chisel3.stage.ChiselStage
 import chisel3.util.Decoupled
 // import jigsaw.peripherals.spiflash.{Config,Spi}
 // import jigsaw.rams.sram._
+import timer._
 
 class TimerHarness(implicit val config: WishboneConfig ) extends Module {
   val io = IO(new Bundle {
@@ -28,7 +29,7 @@ class TimerHarness(implicit val config: WishboneConfig ) extends Module {
   timer.io.req <> deviceAdapter.io.reqOut
   timer.io.rsp <> deviceAdapter.io.rspIn
 
-  timer.io.intr_cmp := timer.io.intr_cmp
+  io.intr_cmp := timer.io.intr_cmp
 }
 
 object TimerDriverWB extends App {
@@ -62,7 +63,7 @@ class TimerHarnessTL(implicit val config: TilelinkConfig ) extends Module {
   timer.io.req <> deviceAdapter.io.reqOut
   timer.io.rsp <> deviceAdapter.io.rspIn
 
-  timer.io.intr_cmp := timer.io.intr_cmp
+  io.intr_cmp := timer.io.intr_cmp
 
 }
 
