@@ -1,2 +1,3 @@
-# timer
-Chisel implementation of timer which has generic interface and we can connect it with any SoC using jigsaw framework.
+# Timer
+
+Timer is implemented in chisel and it has generic interface which can be easily attached with any System on Chip (SoC) by using jigsaw framework.
