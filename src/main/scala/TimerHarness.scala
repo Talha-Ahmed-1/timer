@@ -16,6 +16,7 @@ class TimerHarness(implicit val config: WishboneConfig ) extends Module {
     val rsp = Decoupled(new WBResponse())
 
     val intr_cmp = Output(Bool())
+    val intr_ovf = Output(Bool())
   })
   val hostAdapter = Module(new WishboneHost())
   val deviceAdapter = Module(new WishboneDevice())
@@ -30,6 +31,7 @@ class TimerHarness(implicit val config: WishboneConfig ) extends Module {
   timer.io.rsp <> deviceAdapter.io.rspIn
 
   io.intr_cmp := timer.io.intr_cmp
+  io.intr_ovf := timer.io.intr_ovf
 }
 
 object TimerDriverWB extends App {
@@ -49,7 +51,8 @@ class TimerHarnessTL(implicit val config: TilelinkConfig ) extends Module {
     val rsp = Decoupled(new TLResponse())
 
     val intr_cmp = Output(Bool())
-
+    val intr_ovf = Output(Bool())
+    
   })
   val hostAdapter = Module(new TilelinkHost())
   val deviceAdapter = Module(new TilelinkDevice())
@@ -64,6 +67,7 @@ class TimerHarnessTL(implicit val config: TilelinkConfig ) extends Module {
   timer.io.rsp <> deviceAdapter.io.rspIn
 
   io.intr_cmp := timer.io.intr_cmp
+  io.intr_ovf := timer.io.intr_ovf
 
 }
 
